@@ -19,7 +19,34 @@ form.addEventListener('submit', function(event) {
     } else if (bmi >= 25 && bmi <= 29.9) {
       suggestions = 'You are overweight. Try incorporating more cardio and reducing your caloric intake.';
     } else {
-      suggestions = 'You are obese. Consider seeking professional help to create a personalized workout and diet plan.';
+      // Make an API call to get workout suggestions for obese users
+      const url = `https://trackapi.nutritionix.com/v2/natural/exercise`;
+      const headers = {
+        'Content-Type': 'application/json',
+        'x-app-id': eac9143c,
+        'x-app-key': 4200ea571903f91fdeccfc9674cc1f7e — 
+      };
+      const data = {
+        query: 'I am obese. What workout should I do?',
+        gender: 'male',
+        weight_kg: weight,
+        height_cm: height
+      };
+      fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.exercises && data.exercises.length > 0) {
+          suggestions = `Here are some workout suggestions for you: ${data.exercises[0].name}, ${data.exercises[1].name}, ${data.exercises[2].name}`;
+        } else {
+          suggestions = 'Sorry, we could not find any workout suggestions for you.';
+        }
+        workoutSuggestions.textContent = suggestions;
+      })
+      .catch(error => console.error(error));
     }
   }
 
