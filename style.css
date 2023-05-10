@@ -60,7 +60,7 @@ button[type="submit"]:hover {
   position: fixed; /* or "absolute" */
   top: 0;
   left: 0;
-  width: 200px; /* set the width of the sidebar */
+  width: 400px; /* set the width of the sidebar */
   height: 100%;
   background-color: #f8f8f8; /* set the background color */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* add a shadow */
